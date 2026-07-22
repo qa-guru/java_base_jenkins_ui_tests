@@ -22,8 +22,8 @@ public class RegistrationPage {
     public RegistrationPage openPage() {
         open("/automation-practice-form");
         $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
-        executeJavaScript("$('#fixedban').remove()");
-        executeJavaScript("$('footer').remove()");
+        executeJavaScript("var el=document.getElementById('fixedban'); if(el){el.remove();}");
+        executeJavaScript("document.querySelectorAll('footer').forEach(function(el){el.remove();});");
 
         return this;
     }
