@@ -51,8 +51,8 @@ public class RegistrationWithPageObjectTests extends TestBase {
     }
 
     @Test
-    @DisplayName("Broken Registration")
-    void brokenRegistrationTest() {
+    @DisplayName("Successful Registration with Page Object")
+    void successfulRegistrationWithRequiredFieldsTest() {
         step("Open registration page", () ->
             registrationPage.openPage());
 
@@ -66,13 +66,14 @@ public class RegistrationWithPageObjectTests extends TestBase {
         });
 
         step("Check registration form results data", () -> {
-            step("Check registration form results component appears", () -> { // or move to pageobject step
+            step("Check registration form results component appears", () -> {
                 $(".modal-dialog").should(appear);
                 $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
             });
 
             registrationPage.checkResult("Student Name", "Alex Egorov")
-                    .checkResult("Student Email", "alex111@egorov.com");
+                    .checkResult("Gender", "Other")
+                    .checkResult("Mobile", "1234567890");
         });
     }
 }
