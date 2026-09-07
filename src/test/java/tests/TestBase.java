@@ -8,10 +8,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import pages.RegistrationPage;
 
-import java.util.List;
 import java.util.Map;
 
 import static com.codeborne.selenide.Selenide.closeWebDriver;
@@ -22,7 +20,8 @@ public class TestBase {
 
     @BeforeEach
     void addListener() {
-        SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
+        SelenideLogger.addListener("AllureSelenide",
+                new AllureSelenide().screenshots(true).savePageSource(true));
     }
 
     @BeforeAll
@@ -31,16 +30,15 @@ public class TestBase {
         Configuration.browserSize = "1920x1080";
         Configuration.browser = "chrome";
         Configuration.browserVersion = "151.0";
-
-        DesiredCapabilities capabilities = new DesiredCapabilities();
+        Configuration.timeout = 15000;
         ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments(List.of("--disable-dev-shm-usage", "--no-sandbox"));
-        capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
-        capabilities.setCapability("selenoid:options", Map.<String, Object>of(
+        chromeOptions.addArguments("--disable-dev-shm-usage", "--no-sandbox");
+        chromeOptions.setCapability("se:cdpEnabled", false);
+        chromeOptions.setCapability("selenoid:options", Map.of(
                 "enableVNC", true,
                 "enableVideo", true
         ));
-        Configuration.browserCapabilities = capabilities;
+        Configuration.browserCapabilities = chromeOptions;
         Configuration.remote = "https://user1:1234@selenoid.qa.guru/wd/hub";
     }
 
@@ -48,9 +46,7 @@ public class TestBase {
     void addAttachments() {
         Attach.screenshotAs("Last screenshot");
         Attach.pageSource();
-        Attach.browserConsoleLogs();
         Attach.addVideo();
-//        Attach.attachAsText("Some file", "Some content");
         closeWebDriver();
     }
 }
