@@ -51,11 +51,10 @@ public class RegistrationTests {
         executeJavaScript("arguments[0].click();", $("#hobbiesWrapper").$(byText("Sports")));
         $("#uploadPicture").uploadFromClasspath("img/1.png");
         $("#currentAddress").setValue("Some address 1");
-        $("#state").scrollIntoView(true);
-        $("#react-select-3-input").setValue("NCR");
-        $("#react-select-3-option-0").shouldBe(visible).click();
-        $("#react-select-4-input").shouldBe(enabled).setValue("Delhi");
-        $("#react-select-4-option-0").shouldBe(visible).click();
+        $("#state").scrollIntoView(true).click();
+        executeJavaScript("arguments[0].click();", $("#stateCity-wrapper").$(byText("NCR")).shouldBe(visible));
+        $("#city").click();
+        executeJavaScript("arguments[0].click();", $("#stateCity-wrapper").$(byText("Delhi")).shouldBe(visible));
         executeJavaScript("arguments[0].click();", $("#submit"));
 
         $(".modal-dialog").should(appear);
