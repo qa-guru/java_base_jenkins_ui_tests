@@ -16,7 +16,7 @@ public class RegistrationTests {
 //        Configuration.browser = "chrome";
 //        Configuration.browserVersion = "128.0";
 //        Configuration.browserVersion = "130.0";
-        Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
+        Configuration.remote = "https://user1:1234@selenoid.qa.guru/wd/hub";
     }
 
     @Test
