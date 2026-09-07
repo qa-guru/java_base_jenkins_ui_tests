@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 import pages.RegistrationPage;
 
 import static com.codeborne.selenide.Condition.appear;
+import static com.codeborne.selenide.Condition.enabled;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
@@ -37,8 +39,10 @@ public class RegistrationWithPageObjectTests extends TestBase {
             $("#uploadPicture").uploadFromClasspath("img/1.png");
             $("#currentAddress").setValue("Some address 1");
             $("#state").scrollIntoView(true);
-            $("#react-select-3-input").setValue("NCR").pressEnter();
-            $("#react-select-4-input").setValue("Delhi").pressEnter();
+            $("#react-select-3-input").setValue("NCR");
+            $("#react-select-3-option-0").shouldBe(visible).click();
+            $("#react-select-4-input").shouldBe(enabled).setValue("Delhi");
+            $("#react-select-4-option-0").shouldBe(visible).click();
             executeJavaScript("arguments[0].click();", $("#submit"));
         });
         step("Check registration form results data", () -> {
