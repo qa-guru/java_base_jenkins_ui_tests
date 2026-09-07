@@ -15,8 +15,8 @@ public class RegistrationWithStepsTests extends TestBase {
         step("Open form", () -> {
             open("/automation-practice-form");
             $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
-            executeJavaScript("$('#fixedban').remove()");
-            executeJavaScript("$('footer').remove()");
+            executeJavaScript("document.getElementById('fixedban')?.remove()");
+            executeJavaScript("document.querySelectorAll('footer').forEach(el => el.remove())");
         });
         step("Fill form", () -> {
             $("#firstName").setValue("Alex");
