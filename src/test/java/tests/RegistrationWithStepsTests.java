@@ -35,8 +35,10 @@ public class RegistrationWithStepsTests extends TestBase {
             $("#uploadPicture").uploadFromClasspath("img/1.png");
             $("#currentAddress").setValue("Some address 1");
             $("#state").scrollIntoView(true);
-            $("#react-select-3-input").setValue("NCR").pressEnter();
-            $("#react-select-4-input").shouldBe(enabled).setValue("Delhi").pressEnter();
+            executeJavaScript("var open=function(id){var el=document.querySelector(id);['mousedown','mouseup','click'].forEach(function(t){el.dispatchEvent(new MouseEvent(t,{bubbles:true,cancelable:true,view:window}));});};open(\"#state\");");
+            executeJavaScript("arguments[0].click();", $("#stateCity-wrapper").$(byText("NCR")).shouldBe(visible));
+            executeJavaScript("var open=function(id){var el=document.querySelector(id);['mousedown','mouseup','click'].forEach(function(t){el.dispatchEvent(new MouseEvent(t,{bubbles:true,cancelable:true,view:window}));});};open(\"#city\");");
+            executeJavaScript("arguments[0].click();", $("#stateCity-wrapper").$(byText("Delhi")).shouldBe(visible));
             executeJavaScript("arguments[0].click();", $("#submit"));
         });
         step("Verify results", () -> {
