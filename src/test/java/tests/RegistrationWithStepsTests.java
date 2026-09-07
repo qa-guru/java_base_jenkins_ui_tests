@@ -32,10 +32,9 @@ public class RegistrationWithStepsTests extends TestBase {
             executeJavaScript("arguments[0].click();", $("#hobbiesWrapper").$(byText("Sports")));
             $("#uploadPicture").uploadFromClasspath("img/1.png");
             $("#currentAddress").setValue("Some address 1");
-            executeJavaScript("arguments[0].click();", $("#state"));
-            executeJavaScript("arguments[0].click();", $("#stateCity-wrapper").$(byText("NCR")));
-            executeJavaScript("arguments[0].click();", $("#city"));
-            executeJavaScript("arguments[0].click();", $("#stateCity-wrapper").$(byText("Delhi")));
+            $("#state").scrollIntoView(true);
+            $("#react-select-3-input").setValue("NCR").pressEnter();
+            $("#react-select-4-input").setValue("Delhi").pressEnter();
             executeJavaScript("arguments[0].click();", $("#submit"));
         });
         step("Verify results", () -> {
